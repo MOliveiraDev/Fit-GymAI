@@ -3,3 +3,12 @@ spring:
     url: ${SPRING_SOURCE_DATABASE_URL}
     username: ${SPRING_SOURCE_DATABASE_USERNAME}
     password: ${SPRING_SOURCE_DATABASE_PASSWORD}
+
+gemini:
+  ai:
+    api-url: ${GEMINI_AI_API_URL}
+    api-key: ${GEMINI_AI_API_KEY}
+
+jwt:
+    secret: ${JWT_SECRET}
+    expiration: ${JWT_EXPIRATION}
