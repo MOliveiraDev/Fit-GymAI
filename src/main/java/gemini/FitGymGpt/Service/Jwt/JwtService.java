@@ -22,7 +22,8 @@ public class JwtService {
     private long expirationTime;
 
     private Key getSigningKey() {
-        return Keys.hmacShaKeyFor(secretKey.getBytes());
+        byte [] keyBytes = secretKey.getBytes();
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 
     public String generateToken (UserDetails userDetails) {
@@ -30,7 +31,7 @@ public class JwtService {
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
-                .signWith(getSigningKey(), SignatureAlgorithm.ES256)
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
@@ -52,7 +53,7 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
-    public boolean isTokenExpired (String token) {
+    public boolean isTokenExpired(String token) {
         return extractClaim(token, Claims::getExpiration)
                 .before(new Date(System.currentTimeMillis()));
     }
