@@ -1,5 +1,6 @@
 package gemini.FitGymGpt.Filter;
 
+import gemini.FitGymGpt.Controller.Auth.LogOutController;
 import gemini.FitGymGpt.DataBase.Model.User;
 import gemini.FitGymGpt.Service.Jwt.JwtService;
 import gemini.FitGymGpt.Service.User.UserServiceImpl;
@@ -33,6 +34,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
+            return;
+        }
+
+        if (LogOutController.isTokenBlacklisted(authHeader.substring(7))) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token is blacklisted");
             return;
         }
 
