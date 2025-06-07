@@ -34,3 +34,6 @@ build/
 
 ### dotenv ###
 .env
+
+### application-test.yml ###
+/src/main/resources/application-test.yml
