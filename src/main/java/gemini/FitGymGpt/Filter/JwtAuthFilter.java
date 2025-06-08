@@ -38,9 +38,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
 
         if (LogOutController.isTokenBlacklisted(authHeader.substring(7))) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token is blacklisted");
+            System.out.println("Token está na blacklist. Acesso negado.");
+            filterChain.doFilter(request, response);
             return;
         }
+
 
         jwt = authHeader.substring(7);
         username = jwtService.extractUsername(jwt);
