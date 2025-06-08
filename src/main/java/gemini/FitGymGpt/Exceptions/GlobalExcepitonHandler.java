@@ -1,5 +1,6 @@
-package gemini.FitGymGpt.Exceptions.Auth;
+package gemini.FitGymGpt.Exceptions;
 
+import gemini.FitGymGpt.Exceptions.Auth.UserNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -25,6 +26,28 @@ public class GlobalExcepitonHandler {
         ApiException apiException = new ApiException(
                 ex.getMessage(),
                 "Erro interno do servidor",
+                500,
+                LocalDateTime.now()
+        );
+        return ResponseEntity.status(500).body(apiException);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ApiException> handleIllegalArgumentException(IllegalArgumentException ex) {
+        ApiException apiException = new ApiException(
+                ex.getMessage(),
+                "Argumento inválido fornecido",
+                400,
+                LocalDateTime.now()
+        );
+        return ResponseEntity.status(400).body(apiException);
+    }
+
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<ApiException> handleGeminiException(NullPointerException ex) {
+        ApiException apiException = new ApiException(
+                ex.getMessage(),
+                "Erro de ponteiro nulo",
                 500,
                 LocalDateTime.now()
         );
