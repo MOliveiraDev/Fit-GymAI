@@ -10,8 +10,8 @@ import java.util.List;
 
 @Entity
 @Data
-@Builder
 @Table(name = "users_tb")
+@NoArgsConstructor
 public class User implements UserDetails {
 
     @Id
