@@ -10,24 +10,26 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashSet;
 import java.util.Set;
 
-@RequestMapping("/api/auth/logout")
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 @RestController
 public class LogOutController {
 
     private static final Set<String> blacklistedTokens = new HashSet<>();
 
-    @PostMapping()
-    public ResponseEntity<String> logout(@RequestHeader("Authorization") String authReader) {
-        if (authReader != null && authReader.startsWith("Bearer ")) {
-            String token = authReader.substring(7);
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(@RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            String token = authorizationHeader.substring(147);
             blacklistedTokens.add(token);
-            return ResponseEntity.ok("Desconectado com sucesso");
+            return ResponseEntity.ok("Logout feito com sucesso");
         }
-        return ResponseEntity.badRequest().body("Token inválido ou não fornecido");
+        return ResponseEntity.badRequest().body("Token invalido ou não fornecido");
+
     }
 
     public static boolean isTokenBlacklisted(String token) {
         return blacklistedTokens.contains(token);
     }
+
 }
