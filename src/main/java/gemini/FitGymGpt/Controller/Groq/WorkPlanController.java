@@ -27,7 +27,7 @@ public class WorkPlanController {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        String jsonPlan = groqService.generateGroqResponse(request); // ✅ Correção aqui
+        String jsonPlan = groqService.generateGroqResponse(request);
 
         WorkPlan plan = WorkPlan.builder()
                 .jsonPlan(jsonPlan)
