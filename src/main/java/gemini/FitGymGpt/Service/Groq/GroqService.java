@@ -33,7 +33,7 @@ public class GroqService {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setBearerAuth(apiKey); // ✅ Aqui adiciona o Authorization
+        headers.setBearerAuth(apiKey);
 
         HttpEntity<GroqChatRequest> entity = new HttpEntity<>(chatRequest, headers);
 
