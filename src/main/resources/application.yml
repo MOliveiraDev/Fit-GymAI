@@ -11,10 +11,10 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
-groq:
+gemini:
   ai:
-    api-url: ${GROQ_AI_API_URL}
-    api-key: ${GROQ_AI_API_KEY}
+    api-url: ${GEMINI_API_URL}
+    api-key: ${GEMINI_API_KEY}
 
 jwt:
     secret: ${JWT_SECRET}
