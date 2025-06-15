@@ -19,3 +19,10 @@ groq:
 jwt:
     secret: ${JWT_SECRET}
     expiration: ${JWT_EXPIRATION}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+  api-docs:
+    enabled: true

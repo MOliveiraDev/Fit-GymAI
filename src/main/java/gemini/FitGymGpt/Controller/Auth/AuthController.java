@@ -1,5 +1,6 @@
 package gemini.FitGymGpt.Controller.Auth;
 
+import gemini.FitGymGpt.Controller.Auth.Interface.IAuthController;
 import gemini.FitGymGpt.DTO.Auth.AuthRequest;
 import gemini.FitGymGpt.DTO.Auth.AuthResponse;
 import gemini.FitGymGpt.DataBase.Model.Role;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
 @RestController
-public class AuthController {
+public class AuthController implements IAuthController {
 
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;

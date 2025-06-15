@@ -1,5 +1,6 @@
 package gemini.FitGymGpt.Controller.Groq;
 
+import gemini.FitGymGpt.Controller.Groq.Interface.IWorkPlanController;
 import gemini.FitGymGpt.DTO.Groq.BodyStatsRequest;
 import gemini.FitGymGpt.DataBase.Model.User;
 import gemini.FitGymGpt.DataBase.Model.WorkPlan;
@@ -15,20 +16,20 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/workplan")
-public class WorkPlanController {
+public class WorkPlanController implements IWorkPlanController {
 
     private final GroqService groqService;
     private final UserRepository userRepository;
     private final WorkPlanRepository workPlanRepository;
 
+    @Override
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/generate/{userId}")
-    public ResponseEntity<?> createWorkPlan(@PathVariable Long userId, @RequestBody BodyStatsRequest request) {
+    public ResponseEntity<WorkPlan> createWorkPlan(@PathVariable Long userId, @RequestBody BodyStatsRequest request) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        String jsonPlan = groqService.generateGroqResponse(request); // ✅ Correção aqui
-
+        String jsonPlan = groqService.generateGroqResponse(request);
         WorkPlan plan = WorkPlan.builder()
                 .jsonPlan(jsonPlan)
                 .user(user)
@@ -38,8 +39,10 @@ public class WorkPlanController {
         return ResponseEntity.ok(saved);
     }
 
+    @Override
     @GetMapping("/my")
-    public ResponseEntity<?> getMyWorkPlans(@AuthenticationPrincipal User user) {
+    public ResponseEntity<?> getMyWorkPlans(@AuthenticationPrincipal Object userObj) {
+        User user = (User) userObj;
         return ResponseEntity.ok(workPlanRepository.findByUser(user));
     }
 }

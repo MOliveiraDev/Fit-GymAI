@@ -1,5 +1,6 @@
 package gemini.FitGymGpt.Controller.Auth;
 
+import gemini.FitGymGpt.Controller.Auth.Interface.ILogOutController;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,14 +14,14 @@ import java.util.Set;
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 @RestController
-public class LogOutController {
+public class LogOutController implements ILogOutController {
 
     private static final Set<String> blacklistedTokens = new HashSet<>();
 
     @PostMapping("/logout")
     public ResponseEntity<String> logout(@RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            String token = authorizationHeader.substring(147);
+            String token = authorizationHeader.substring(7);
             blacklistedTokens.add(token);
             return ResponseEntity.ok("Logout feito com sucesso");
         }
