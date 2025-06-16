@@ -1,11 +1,11 @@
-package gemini.FitGymGpt.Controller.Groq;
+package gemini.FitGymGpt.Controller.Gemini;
 
-import gemini.FitGymGpt.DTO.Groq.BodyStatsRequest;
+import gemini.FitGymGpt.DTO.Gemini.BodyStatsRequest;
 import gemini.FitGymGpt.DataBase.Model.User;
 import gemini.FitGymGpt.DataBase.Model.WorkPlan;
 import gemini.FitGymGpt.DataBase.Repository.UserRepository;
 import gemini.FitGymGpt.DataBase.Repository.WorkPlanRepository;
-import gemini.FitGymGpt.Service.Groq.GroqService;
+import gemini.FitGymGpt.Service.Gemini.GeminiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/workplan")
 public class WorkPlanController {
 
-    private final GroqService groqService;
+    private final GeminiService geminiService;
     private final UserRepository userRepository;
     private final WorkPlanRepository workPlanRepository;
 
@@ -27,7 +27,7 @@ public class WorkPlanController {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        String jsonPlan = groqService.generateGroqResponse(request);
+        String jsonPlan = geminiService.workPlanGenerate(request);
 
         WorkPlan plan = WorkPlan.builder()
                 .jsonPlan(jsonPlan)

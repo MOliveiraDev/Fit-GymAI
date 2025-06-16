@@ -1,8 +1,8 @@
-package gemini.FitGymGpt.Service.Groq;
+package gemini.FitGymGpt.Service.Gemini;
 
-import gemini.FitGymGpt.DTO.Groq.BodyStatsRequest;
-import gemini.FitGymGpt.DTO.Groq.GroqChatRequest;
-import gemini.FitGymGpt.DTO.Groq.GroqChatResponse;
+import gemini.FitGymGpt.DTO.Gemini.BodyStatsRequest;
+import gemini.FitGymGpt.DTO.Gemini.GeminiChatRequest;
+import gemini.FitGymGpt.DTO.Gemini.GeminiChatResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -13,45 +13,52 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class GroqService {
+public class GeminiService {
 
     private final RestTemplate restTemplate;
 
-    @Value("${groq.ai.api-url}")
+    @Value("${gemini.ai.api-url}")
     private String apiUrl;
 
-    @Value("${groq.ai.api-key}")
+    @Value("${gemini.ai.api-key}")
     private String apiKey;
 
-    public String generateGroqResponse(BodyStatsRequest request) {
-        GroqChatRequest chatRequest = new GroqChatRequest();
-        chatRequest.setModel("llama-3.1-8b-instant");
-        chatRequest.setMessages(List.of(
-                new GroqChatRequest.Message("system", "Você é um assistente de fitness especializado em criar planos de treino personalizados."),
-                new GroqChatRequest.Message("user", formatPrompt(request))
-        ));
+    public String workPlanGenerate(BodyStatsRequest request) {
+        String prompt = formatPrompt(request);
+
+        GeminiChatRequest.Content content = new GeminiChatRequest.Content(
+                List.of(new GeminiChatRequest.Part(prompt))
+        );
+        GeminiChatRequest chatRequest = new GeminiChatRequest(List.of(content));
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setBearerAuth(apiKey);
 
-        HttpEntity<GroqChatRequest> entity = new HttpEntity<>(chatRequest, headers);
+        HttpEntity<GeminiChatRequest> entity = new HttpEntity<>(chatRequest, headers);
 
         try {
-            ResponseEntity<GroqChatResponse> response = restTemplate.exchange(
-                    apiUrl, HttpMethod.POST, entity, GroqChatResponse.class
+            ResponseEntity<GeminiChatResponse> response = restTemplate.exchange(
+                    apiUrl + ":generateContent?key=" + apiKey,
+                    HttpMethod.POST,
+                    entity,
+                    GeminiChatResponse.class
             );
 
             if (response.getBody() != null &&
-                    response.getBody().getChoices() != null &&
-                    !response.getBody().getChoices().isEmpty()) {
-                return response.getBody().getChoices().get(0).getMessage().getContent();
+                    !response.getBody().getCandidates().isEmpty()) {
+                return response.getBody()
+                        .getCandidates()
+                        .get(0)
+                        .getContent()
+                        .getParts()
+                        .get(0)
+                        .getText();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        throw new RuntimeException("Erro ao obter resposta do Groq AI");
+        return "Erro ao se comunicar com a Gemini API.";
     }
 
     private String formatPrompt(BodyStatsRequest s) {
@@ -86,9 +93,9 @@ public class GroqService {
                       "video": "https://www.youtube.com/watch?v=abc123"
                     }
                   ],
-                  "terça": [...] isso tudo até sábado
-                  
-                  SEGUE APENAS O EXEMPLO, NÃO FOGE DO PADRÃO, NÃO COMENTE NADA A RESPEITO, APENAS SEGUE O EXEMPLO 
+                  "terça": [...]
+                  CADA DIA DEVE TER MAIS DE 5 EXERCÍCIOS.
+                  SEGUE APENAS O EXEMPLO, NÃO FOGE DO PADRÃO, NÃO COMENTE NADA A RESPEITO, APENAS SEGUE O EXEMPLO.
                 }
                 """,
                 s.getAge(), s.getHeight(), s.getWeight(),
