@@ -82,7 +82,6 @@ public class GeminiService {
                 - Número de séries e repetições
                 - URLs de vídeos explicativos
 
-                Formato da resposta: JSON
                 Exemplo:
                 {
                   "segunda": [
