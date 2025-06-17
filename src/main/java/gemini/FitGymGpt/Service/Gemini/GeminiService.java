@@ -64,6 +64,7 @@ public class GeminiService {
     private String formatPrompt(BodyStatsRequest s) {
         return String.format("""
                 Gere um plano de treino semanal baseado nos seguintes dados físicos:
+                
                 - Idade: %d anos
                 - Altura: %.2f m
                 - Peso: %.2f kg
@@ -80,7 +81,8 @@ public class GeminiService {
                 - Dias da semana e treinos específicos
                 - Exercícios por dia
                 - Número de séries e repetições
-                - URLs de vídeos explicativos
+                
+               
 
                 Exemplo:
                 {
@@ -89,7 +91,7 @@ public class GeminiService {
                       "exercicio": "Supino reto",
                       "series": 4,
                       "repeticoes": 10,
-                      "video": "https://www.youtube.com/watch?v=abc123"
+                      "video": "link do vídeo"
                     }
                   ],
                   "terça": [...]
