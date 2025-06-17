@@ -1,4 +1,4 @@
-# FitGymAi
+# Fit GymAI
 
 ### Back-end do projeto FitGymAi usando Spring boot junto com a intregração com a API do Gemini.
 
