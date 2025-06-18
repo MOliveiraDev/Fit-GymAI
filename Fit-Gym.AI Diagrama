@@ -89,7 +89,7 @@
           <mxGeometry x="363" y="250" width="50" height="50" as="geometry" />
         </mxCell>
         <mxCell id="HL0zuxmFioq4FLdz6BUA-62" value="&lt;h3 align=&quot;center&quot;&gt;&lt;font face=&quot;Lucida Console&quot;&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;Gemini API&lt;/span&gt;&lt;/font&gt;&lt;/h3&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="344" y="300" width="88" height="20" as="geometry" />
+          <mxGeometry x="344" y="300" width="96" height="20" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
