@@ -1,4 +1,4 @@
-package gemini.FitGymGpt.Controller.Auth;
+package gemini.FitGymGpt.Controller.Auth.Impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +13,7 @@ import java.util.Set;
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 @RestController
-public class LogOutController {
+public class LogOutControllerImpl {
 
     private static final Set<String> blacklistedTokens = new HashSet<>();
 
