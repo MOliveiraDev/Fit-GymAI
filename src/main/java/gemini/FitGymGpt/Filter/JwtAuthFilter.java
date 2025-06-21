@@ -1,6 +1,6 @@
 package gemini.FitGymGpt.Filter;
 
-import gemini.FitGymGpt.Controller.Auth.LogOutController;
+import gemini.FitGymGpt.Controller.Auth.Impl.LogOutControllerImpl;
 import gemini.FitGymGpt.DataBase.Model.User;
 import gemini.FitGymGpt.Service.Jwt.JwtService;
 import gemini.FitGymGpt.Service.User.UserServiceImpl;
@@ -37,7 +37,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             return;
         }
 
-        if (LogOutController.isTokenBlacklisted(authHeader.substring(7))) {
+        if (LogOutControllerImpl.isTokenBlacklisted(authHeader.substring(7))) {
             System.out.println("Token está na blacklist. Acesso negado.");
             filterChain.doFilter(request, response);
             return;
