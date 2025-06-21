@@ -1,11 +1,11 @@
 # Fit GymAI
 
 ### Back-end do projeto FitGymAi usando Spring boot junto com a intregração com a API do Gemini.
-
-# Diagrama
+<hr>
+## Diagrama
 
 <img src="https://github.com/MOliveiraDev/Fit-GymAI/blob/main/assets/Fit-Gym.AI%20Diagrama.jpg"></img>
-
+<hr>
 ## Funcionalidades
 
 - Cadastro/Login/Logout de usuários.
