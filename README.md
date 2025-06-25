@@ -30,6 +30,7 @@
 - Jwt
 - Maven
 - Docker
+- Red Hat (UBI)
 
 # End points
 
