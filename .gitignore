@@ -37,3 +37,6 @@ build/
 
 ### application-test.yml ###
 /src/main/resources/application-test.yml
+
+### docker-compose.yaml ###
+docker-compose.yaml
