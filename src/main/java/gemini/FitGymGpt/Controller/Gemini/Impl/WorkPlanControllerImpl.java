@@ -1,4 +1,4 @@
-package gemini.FitGymGpt.Controller.Gemini;
+package gemini.FitGymGpt.Controller.Gemini.Impl;
 
 import gemini.FitGymGpt.DTO.Gemini.BodyStatsRequest;
 import gemini.FitGymGpt.DataBase.Model.User;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/workplan")
-public class WorkPlanController {
+public class WorkPlanControllerImpl {
 
     private final GeminiService geminiService;
     private final UserRepository userRepository;
