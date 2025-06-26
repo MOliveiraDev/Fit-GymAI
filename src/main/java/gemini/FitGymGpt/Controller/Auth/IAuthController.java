@@ -21,6 +21,13 @@ public interface IAuthController {
     })
     ResponseEntity<User> register(@Valid @RequestBody User user);
 
+    @Operation(summary = "Registro para novos usuários com papel de administrador")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Usuário administrador registrado com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Usuário já existe ou dados inválidos"),
+    })
+    ResponseEntity<User> registerAdmin(@Valid @RequestBody User user);
+
     @Operation(summary = "Login de usuários existentes")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Login bem-sucedido"),
