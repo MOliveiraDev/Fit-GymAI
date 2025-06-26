@@ -30,8 +30,6 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/login").permitAll()
-                        .requestMatchers("/api/auth/register").hasRole("ADMIN")
-                        .requestMatchers("/api/auth/register-admin").hasRole("ADMIN")
                         .requestMatchers("/api/workplan/generate/**").hasRole("ADMIN")
                         .requestMatchers(
                                 "/swagger-ui/**",
