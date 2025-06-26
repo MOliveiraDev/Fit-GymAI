@@ -10,7 +10,9 @@ import java.util.List;
 
 @Entity
 @Data
+@Builder
 @Table(name = "users_tb")
+@AllArgsConstructor
 @NoArgsConstructor
 public class User implements UserDetails {
 
