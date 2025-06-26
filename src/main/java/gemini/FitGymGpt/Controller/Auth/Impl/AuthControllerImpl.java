@@ -25,8 +25,7 @@ public class AuthControllerImpl implements IAuthController {
     private final UserRepository userRepository;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
-
-    @PreAuthorize("hasRole('ADMIN')")
+    
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user) {
         if (userRepository.existsByUsername(user.getUsername())) {
@@ -38,7 +37,6 @@ public class AuthControllerImpl implements IAuthController {
         return ResponseEntity.ok(savedUser);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/register-admin")
     public ResponseEntity<User> registerAdmin(@RequestBody User user) {
         if (userRepository.existsByUsername(user.getUsername())) {
