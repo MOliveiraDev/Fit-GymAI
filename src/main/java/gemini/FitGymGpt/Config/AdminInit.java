@@ -4,10 +4,10 @@ import gemini.FitGymGpt.DataBase.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 
-@Component
+@Configuration
 @RequiredArgsConstructor
 public class AdminInit implements ApplicationRunner {
 
@@ -23,7 +23,9 @@ public class AdminInit implements ApplicationRunner {
                     .role(gemini.FitGymGpt.DataBase.Model.Role.ADMIN)
                     .build();
             userRepository.save(admin);
-            System.out.println("ADM account: username: admin password: admin123");
+            System.out.println("Admin account \nusername: admin \npassword: admin123");
+        } else {
+            System.out.println("Admin account \nusername: admin \npassword: admin123");
         }
     }
 }
