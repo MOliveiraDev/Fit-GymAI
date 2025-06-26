@@ -10,6 +10,7 @@ import gemini.FitGymGpt.Exceptions.Auth.UserNotFoundException;
 import gemini.FitGymGpt.Service.Jwt.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,6 +26,7 @@ public class AuthControllerImpl implements IAuthController {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user) {
         if (userRepository.existsByUsername(user.getUsername())) {
@@ -32,6 +34,18 @@ public class AuthControllerImpl implements IAuthController {
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(Role.USER);
+        User savedUser = userRepository.save(user);
+        return ResponseEntity.ok(savedUser);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/register-admin")
+    public ResponseEntity<User> registerAdmin(@RequestBody User user) {
+        if (userRepository.existsByUsername(user.getUsername())) {
+            return ResponseEntity.badRequest().body(null);
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(Role.ADMIN);
         User savedUser = userRepository.save(user);
         return ResponseEntity.ok(savedUser);
     }
