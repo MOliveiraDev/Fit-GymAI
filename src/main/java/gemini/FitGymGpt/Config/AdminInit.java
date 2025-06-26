@@ -4,10 +4,10 @@ import gemini.FitGymGpt.DataBase.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 
-@Configuration
+@Component
 @RequiredArgsConstructor
 public class AdminInit implements ApplicationRunner {
 
