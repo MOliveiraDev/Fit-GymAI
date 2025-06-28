@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>gemini</groupId>
-	<artifactId>FitGymGpt</artifactId>
+	<artifactId>FitGymAI</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>FitGymGpt</name>
+	<name>FitGymAI</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>

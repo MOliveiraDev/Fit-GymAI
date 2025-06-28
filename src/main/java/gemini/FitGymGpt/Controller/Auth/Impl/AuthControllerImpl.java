@@ -26,7 +26,6 @@ public class AuthControllerImpl implements IAuthController {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user) {
         if (userRepository.existsByUsername(user.getUsername())) {

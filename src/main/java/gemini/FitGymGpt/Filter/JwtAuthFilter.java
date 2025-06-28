@@ -29,6 +29,19 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         final String authHeader = request.getHeader("Authorization");
+        final String path = request.getServletPath();
+
+
+        if (path.startsWith("/api/auth/register") ||
+                path.startsWith("/api/auth/login") ||
+                path.startsWith("/api/auth/logout") ||
+                path.startsWith("/swagger-ui") ||
+                path.startsWith("/v3/api-docs") ||
+                path.startsWith("/swagger-ui.html")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         final String jwt;
         final String username;
 
@@ -37,14 +50,14 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             return;
         }
 
-        if (LogOutControllerImpl.isTokenBlacklisted(authHeader.substring(7))) {
+        jwt = authHeader.substring(7);
+
+        if (LogOutControllerImpl.isTokenBlacklisted(jwt)) {
             System.out.println("Token está na blacklist. Acesso negado.");
             filterChain.doFilter(request, response);
             return;
         }
 
-
-        jwt = authHeader.substring(7);
         username = jwtService.extractUsername(jwt);
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
@@ -57,6 +70,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }
+
         filterChain.doFilter(request, response);
     }
 }
