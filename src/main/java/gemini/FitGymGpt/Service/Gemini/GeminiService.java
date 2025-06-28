@@ -88,9 +88,9 @@ public class GeminiService {
                 {
                   "segunda": [
                     {
-                      "exercicio": "Supino reto",
-                      "series": 4,
-                      "repeticoes": 10,
+                      "exercicio": "treino",
+                      "series": numero de séries,
+                      "repeticoes": numero de repetições,
                       "video": "link do vídeo"
                     }
                   ],
