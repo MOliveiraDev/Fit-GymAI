@@ -26,5 +26,8 @@ public class AdminSeeder implements CommandLineRunner {
             userRepository.save(admin);
             System.out.println("ADM ACCOUNT \n Username: admin \n Password: admin123");
         }
+        else {
+            System.out.println("ADM ACCOUNT \n Username: admin \n Password: admin123");
+        }
     }
 }
