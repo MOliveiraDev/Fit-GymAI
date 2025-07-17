@@ -5,8 +5,8 @@ import gemini.FitGymGpt.database.model.User;
 import gemini.FitGymGpt.database.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Component
 @RequiredArgsConstructor
@@ -17,17 +17,27 @@ public class AdminSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        if (userRepository.findByUsername("admin").isEmpty()) {
-            User admin = User.builder()
-                    .username("admin")
+        String adminEmail = "admin@fitgymgpt.com";
+        if (userRepository.findByEmail(adminEmail).isEmpty()) {
+            User adminUser = User.builder()
+                    .username("Administrador")
+                    .email(adminEmail)
                     .password(passwordEncoder.encode("admin123"))
+                    .confirmPassword("admin123")
                     .role(Role.ADMIN)
                     .build();
-            userRepository.save(admin);
-            System.out.println("ADM ACCOUNT \n Username: admin \n Password: admin123");
+
+            userRepository.save(adminUser);
+
+            System.out.println("ADMIN USER SEEDED: \n " +
+                    "Email: " + adminEmail + "\n " +
+                    "Password: admin123");
         }
+
         else {
-            System.out.println("ADM ACCOUNT \n Username: admin \n Password: admin123");
+            System.out.println("ADMIN USER SEEDED: \n " +
+                    "Email: " + adminEmail + "\n " +
+                    "Password: admin123");
         }
     }
 }
