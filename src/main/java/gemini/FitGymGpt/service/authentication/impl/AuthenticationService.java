@@ -3,6 +3,7 @@ package gemini.FitGymGpt.service.authentication.impl;
 import gemini.FitGymGpt.dto.auth.AuthRequest;
 import gemini.FitGymGpt.dto.auth.AuthResponse;
 import gemini.FitGymGpt.exceptions.auth.EmailNotFoundException;
+import gemini.FitGymGpt.exceptions.auth.PasswordIsIncorrectException;
 import gemini.FitGymGpt.service.authentication.IAuthenticationService;
 import gemini.FitGymGpt.service.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,8 @@ public class AuthenticationService implements IAuthenticationService {
                     .build();
         } catch (BadCredentialsException e) {
             throw new EmailNotFoundException("Email ou senha inválidos");
+        } catch (Exception e) {
+            throw new PasswordIsIncorrectException("Senha incorreta ou usuário não encontrado");
         }
     }
 }
