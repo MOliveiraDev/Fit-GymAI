@@ -1,11 +1,11 @@
-package gemini.FitGymGpt.Controller.Gemini.Impl;
+package gemini.FitGymGpt.controller.gemini.Impl;
 
-import gemini.FitGymGpt.DTO.Gemini.BodyStatsRequest;
-import gemini.FitGymGpt.DataBase.Model.User;
-import gemini.FitGymGpt.DataBase.Model.WorkPlan;
-import gemini.FitGymGpt.DataBase.Repository.UserRepository;
-import gemini.FitGymGpt.DataBase.Repository.WorkPlanRepository;
-import gemini.FitGymGpt.Service.Gemini.GeminiService;
+import gemini.FitGymGpt.dto.gemini.BodyStatsRequest;
+import gemini.FitGymGpt.database.model.User;
+import gemini.FitGymGpt.database.model.WorkPlan;
+import gemini.FitGymGpt.database.repository.UserRepository;
+import gemini.FitGymGpt.database.repository.WorkPlanRepository;
+import gemini.FitGymGpt.service.gemini.GeminiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

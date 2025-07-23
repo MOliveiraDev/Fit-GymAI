@@ -1,4 +1,4 @@
-package gemini.FitGymGpt.Config;
+package gemini.FitGymGpt.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

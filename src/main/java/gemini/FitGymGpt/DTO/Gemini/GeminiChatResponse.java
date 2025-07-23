@@ -1,4 +1,4 @@
-package gemini.FitGymGpt.DTO.Gemini;
+package gemini.FitGymGpt.dto.gemini;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;

@@ -1,7 +1,7 @@
-package gemini.FitGymGpt.Controller.Gemini;
+package gemini.FitGymGpt.controller.gemini;
 
 
-import gemini.FitGymGpt.DTO.Gemini.BodyStatsRequest;
+import gemini.FitGymGpt.dto.gemini.BodyStatsRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

@@ -1,4 +1,4 @@
-package gemini.FitGymGpt.DTO.Gemini;
+package gemini.FitGymGpt.dto.gemini;
 
 import lombok.Data;
 

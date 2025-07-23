@@ -1,4 +1,4 @@
-package gemini.FitGymGpt.DataBase.Model;
+package gemini.FitGymGpt.database.model;
 
 public enum Role {
     USER,

@@ -1,19 +1,15 @@
-package gemini.FitGymGpt.Controller.Auth.Impl;
+package gemini.FitGymGpt.controller.auth.Impl;
 
-import gemini.FitGymGpt.Controller.Auth.IAuthController;
-import gemini.FitGymGpt.DTO.Auth.AuthRequest;
-import gemini.FitGymGpt.DTO.Auth.AuthResponse;
-import gemini.FitGymGpt.DataBase.Model.Role;
-import gemini.FitGymGpt.DataBase.Model.User;
-import gemini.FitGymGpt.DataBase.Repository.UserRepository;
-import gemini.FitGymGpt.Exceptions.Auth.UserNotFoundException;
-import gemini.FitGymGpt.Service.Jwt.JwtService;
+import gemini.FitGymGpt.controller.auth.IAuthController;
+import gemini.FitGymGpt.dto.auth.AuthRequest;
+import gemini.FitGymGpt.dto.auth.AuthResponse;
+import gemini.FitGymGpt.dto.register.RegisterRequest;
+import gemini.FitGymGpt.dto.register.RegisterResponse;
+import gemini.FitGymGpt.service.auth.AuthenticationService;
+import gemini.FitGymGpt.service.auth.RegisterService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -21,45 +17,25 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class AuthControllerImpl implements IAuthController {
 
-    private final AuthenticationManager authenticationManager;
-    private final UserRepository userRepository;
-    private final JwtService jwtService;
-    private final PasswordEncoder passwordEncoder;
+    private final RegisterService registerService;
+    private final AuthenticationService authenticationService;
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody User user) {
-        if (userRepository.existsByUsername(user.getUsername())) {
-            return ResponseEntity.badRequest().body(null);
-        }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole(Role.USER);
-        User savedUser = userRepository.save(user);
-        return ResponseEntity.ok(savedUser);
+    @Override
+    public ResponseEntity<RegisterResponse> register(@Valid @RequestBody RegisterRequest registerRequest) {
+        RegisterResponse response = registerService.register(registerRequest);
+        return ResponseEntity.status(201).body(response);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/register-admin")
-    public ResponseEntity<User> registerAdmin(@RequestBody User user) {
-        if (userRepository.existsByUsername(user.getUsername())) {
-            return ResponseEntity.badRequest().body(null);
-        }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole(Role.ADMIN);
-        User savedUser = userRepository.save(user);
-        return ResponseEntity.ok(savedUser);
+    @Override
+    public ResponseEntity<RegisterResponse> registerAdmin(@Valid @RequestBody RegisterRequest registerRequest) {
+        RegisterResponse response = registerService.registerAdmin(registerRequest);
+        return ResponseEntity.status(201).body(response);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
-        );
-
-        User user = userRepository.findByUsername(request.getUsername())
-                .orElseThrow(() -> new UserNotFoundException(request.getUsername()));
-
-        String jwtToken = jwtService.generateToken(user);
-        return ResponseEntity.ok(new AuthResponse(jwtToken));
+    @Override
+    public ResponseEntity<AuthResponse> authenticate(@Valid @RequestBody AuthRequest authRequest) {
+        AuthResponse response = authenticationService.login(authRequest);
+        return ResponseEntity.ok(response);
     }
+
 }

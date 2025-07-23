@@ -1,6 +1,8 @@
-package gemini.FitGymGpt.Controller.Auth.Impl;
+package gemini.FitGymGpt.controller.auth.Impl;
 
-import gemini.FitGymGpt.Controller.Auth.ILogOutController;
+import gemini.FitGymGpt.controller.auth.ILogOutController;
+import gemini.FitGymGpt.service.jwt.TokenBlacklistService;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,21 +18,15 @@ import java.util.Set;
 @RestController
 public class LogOutControllerImpl implements ILogOutController {
 
-    private static final Set<String> blacklistedTokens = new HashSet<>();
+    private final TokenBlacklistService tokenBlacklistService;
 
-    @PostMapping("/logout")
-    public ResponseEntity<String> logout(@RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            String token = authorizationHeader.substring(147);
-            blacklistedTokens.add(token);
-            return ResponseEntity.ok("Logout feito com sucesso");
-        }
-        return ResponseEntity.badRequest().body("Token invalido ou não fornecido");
 
+    @Override
+    public ResponseEntity<String> logout(
+            @Parameter(description = "JWT token", required = true)
+            @RequestHeader(value = "Authorization", required = false) String token
+    ) {
+        tokenBlacklistService.blacklistToken(token);
+        return ResponseEntity.ok("Successfully logged out");
     }
-
-    public static boolean isTokenBlacklisted(String token) {
-        return blacklistedTokens.contains(token);
-    }
-
 }

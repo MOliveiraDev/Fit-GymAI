@@ -1,4 +1,4 @@
-package gemini.FitGymGpt.Service.Jwt;
+package gemini.FitGymGpt.service.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

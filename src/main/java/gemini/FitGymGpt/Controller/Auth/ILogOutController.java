@@ -1,18 +1,19 @@
-package gemini.FitGymGpt.Controller.Auth;
+package gemini.FitGymGpt.controller.auth;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 
 public interface ILogOutController {
 
-    @Operation(summary = "Logout de usuários")
-    @ApiResponses ({
-        @ApiResponse(responseCode = "200", description = "Logout bem-sucedido"),
-        @ApiResponse(responseCode = "400", description = "Erro ao realizar logout")
+    @Operation(summary = "Log out user", description = "Logs out the user by invalidating the JWT token.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully logged out"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized - Invalid or expired token")
     })
-    ResponseEntity<String> logout(@RequestHeader(value = "Authorization", required = false) String authorizationHeader);
+    @PostMapping("/logout")
+    ResponseEntity<String> logout(@RequestHeader(value = "Authorization", required = false) String token);
 }

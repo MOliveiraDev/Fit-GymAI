@@ -1,4 +1,4 @@
-package gemini.FitGymGpt.Exceptions;
+package gemini.FitGymGpt.exceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package gemini.FitGymGpt.DataBase.Model;
+package gemini.FitGymGpt.database.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
