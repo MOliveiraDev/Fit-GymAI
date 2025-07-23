@@ -2,6 +2,7 @@ package gemini.FitGymGpt.exceptions;
 
 import gemini.FitGymGpt.exceptions.auth.EmailNotFoundException;
 import gemini.FitGymGpt.exceptions.auth.PasswordIsIncorrectException;
+import gemini.FitGymGpt.exceptions.gemini.GeminiApiException;
 import gemini.FitGymGpt.exceptions.register.EmailActuallyExistsException;
 import gemini.FitGymGpt.exceptions.register.UsernameActuallyExistsException;
 import io.swagger.v3.oas.annotations.Hidden;
@@ -104,5 +105,16 @@ public class GlobalExcepitonHandler {
                 LocalDateTime.now()
         );
         return ResponseEntity.status(400).body(apiException);
+    }
+
+    @ExceptionHandler(GeminiApiException.class)
+    public ResponseEntity<ApiException> handleGeminiApiException(GeminiApiException ex) {
+        ApiException apiException = new ApiException(
+                ex.getMessage(),
+                "Erro ao se comunicar com a Gemini API",
+                502,
+                LocalDateTime.now()
+        );
+        return ResponseEntity.status(502).body(apiException);
     }
 }
