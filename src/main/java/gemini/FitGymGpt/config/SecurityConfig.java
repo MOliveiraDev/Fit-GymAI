@@ -39,7 +39,7 @@ public class SecurityConfig {
                                 "/v3/api-docs/**",
                                 "/swagger-ui.html"
                         ).permitAll()
-                        .requestMatchers("/api/auth/register-admin").hasRole("ADMIN")
+                        .requestMatchers("/api/auth/register/admin").hasRole("ADMIN")
                         .requestMatchers("/api/workplan/generate/").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
@@ -48,7 +48,6 @@ public class SecurityConfig {
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
-
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
@@ -63,9 +62,8 @@ public class SecurityConfig {
         return config.getAuthenticationManager();
     }
 
-
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }
