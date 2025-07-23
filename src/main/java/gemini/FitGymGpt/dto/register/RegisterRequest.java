@@ -1,5 +1,6 @@
 package gemini.FitGymGpt.dto.register;
 
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,7 @@ public class RegisterRequest {
     @NotBlank(message = "Senha não pode ser vazia")
     private String password;
 
+    @Transient
     @NotBlank(message = "Confirmação de senha não pode ser vazia")
     private String confirmPassword;
 
