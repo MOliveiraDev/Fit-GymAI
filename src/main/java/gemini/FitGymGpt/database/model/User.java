@@ -35,8 +35,6 @@ public class User implements UserDetails {
     @NotBlank(message = "Senha não pode ser vazia")
     private String password;
 
-    @Column(nullable = false)
-    @NotBlank(message = "Confirmação de senha não pode ser vazia")
     @Transient
     private String confirmPassword;
 
@@ -45,7 +43,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(() -> role.name());
+        return List.of(() -> "ROLE_" + role.name());
     }
 
     @Override
