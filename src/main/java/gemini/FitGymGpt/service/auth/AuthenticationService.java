@@ -1,10 +1,9 @@
-package gemini.FitGymGpt.service.authentication.impl;
+package gemini.FitGymGpt.service.auth;
 
 import gemini.FitGymGpt.dto.auth.AuthRequest;
 import gemini.FitGymGpt.dto.auth.AuthResponse;
 import gemini.FitGymGpt.exceptions.auth.EmailNotFoundException;
 import gemini.FitGymGpt.exceptions.auth.PasswordIsIncorrectException;
-import gemini.FitGymGpt.service.authentication.IAuthenticationService;
 import gemini.FitGymGpt.service.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,12 +15,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class AuthenticationService implements IAuthenticationService {
+public class AuthenticationService{
 
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
 
-    @Override
     public AuthResponse login(AuthRequest request) {
         try {
             Authentication authentication = authenticationManager.authenticate(
@@ -35,9 +33,9 @@ public class AuthenticationService implements IAuthenticationService {
                     .token(jwtToken)
                     .build();
         } catch (BadCredentialsException e) {
-            throw new EmailNotFoundException("Email ou senha inválidos");
-        } catch (Exception e) {
-            throw new PasswordIsIncorrectException("Senha incorreta ou usuário não encontrado");
+            throw new PasswordIsIncorrectException("Senha incorreta");
+    }   catch (Exception e ) {
+            throw new EmailNotFoundException("Email não encontrado");
         }
     }
 }
