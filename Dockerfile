@@ -3,6 +3,6 @@ WORKDIR /app
 COPY . /app
 RUN mvn clean package -DskipTests
 
-FROM registry.access.redhat.com/ubi9/openjdk-21
+FROM eclipse-temurin:21-jre
 COPY --from=build /app/target/FitGymAI-0.0.1-SNAPSHOT.jar /app.jar
 ENTRYPOINT ["java", "-jar", "/app.jar"]
