@@ -3,6 +3,7 @@ package gemini.FitGymGpt.service.gemini;
 import gemini.FitGymGpt.dto.gemini.BodyStatsRequest;
 import gemini.FitGymGpt.dto.gemini.GeminiChatRequest;
 import gemini.FitGymGpt.dto.gemini.GeminiChatResponse;
+import gemini.FitGymGpt.exceptions.gemini.GeminiApiException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -54,11 +55,10 @@ public class GeminiService {
                         .get(0)
                         .getText();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (GeminiApiException apiException) {
+            throw new GeminiApiException(apiException.getMessage());
         }
-
-        return "Erro ao se comunicar com a Gemini API.";
+        throw new GeminiApiException("Erro ao gerar o plano de treino. Tente novamente mais tarde.");
     }
 
     private String formatPrompt(BodyStatsRequest s) {
