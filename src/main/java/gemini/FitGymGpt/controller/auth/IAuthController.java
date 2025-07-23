@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +26,16 @@ public interface IAuthController {
     })
     @PostMapping(value = "/register")
     ResponseEntity<RegisterResponse> register(@Valid @RequestBody RegisterRequest registerRequest);
+
+    @Operation(summary = "Registrar um novo usuário administrador")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Usuário administrador registrado com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos"),
+            @ApiResponse(responseCode = "409", description = "Usuário já existe"),
+    })
+    @PostMapping(value = "/register/admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    ResponseEntity<RegisterResponse> registerAdmin(@Valid @RequestBody RegisterRequest registerRequest);
 
     @Operation(summary = "Autenticar usuário")
     @ApiResponses(value = {
