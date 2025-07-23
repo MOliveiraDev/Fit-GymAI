@@ -26,9 +26,6 @@ public class LogOutControllerImpl implements ILogOutController {
             @Parameter(description = "JWT token", required = true)
             @RequestHeader(value = "Authorization", required = false) String token
     ) {
-        if (token == null || token.isEmpty()) {
-            return ResponseEntity.badRequest().body("Header 'Authorization' é obrigatório.");
-        }
         tokenBlacklistService.blacklistToken(token);
         return ResponseEntity.ok("Successfully logged out");
     }
