@@ -1,4 +1,4 @@
-package gemini.FitGymGpt.controller.gemini.Impl;
+package gemini.FitGymGpt.controller.workplan.Impl;
 
 import gemini.FitGymGpt.dto.gemini.BodyStatsRequest;
 import gemini.FitGymGpt.database.model.User;
