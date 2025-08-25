@@ -6,7 +6,7 @@
 
 ### Diagrama
 
-<img src="https://github.com/MOliveiraDev/Fit-GymAI/blob/main/assets/Fit-Gym.AI%20Diagrama.jpg"></img>
+<img src="https://github.com/MOliveiraDev/Fit-GymAI/blob/main/assets/FitGymApp.jpg"></img>
 
 <hr>
 
