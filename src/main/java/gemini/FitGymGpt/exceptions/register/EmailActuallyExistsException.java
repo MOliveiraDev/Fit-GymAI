@@ -6,7 +6,4 @@ public class EmailActuallyExistsException extends RuntimeException{
         super("O email " + email + " já está cadastrado.");
     }
 
-    public EmailActuallyExistsException(String email, Throwable cause) {
-        super("O email " + email + " já está cadastrado.", cause);
-    }
 }
