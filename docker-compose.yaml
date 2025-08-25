@@ -1,0 +1,35 @@
+services:
+  app:
+    build: .
+    container_name: fitgym-app
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/GymIAdb
+      - SPRING_DATASOURCE_USERNAME=FitGym
+      - SPRING_DATASOURCE_PASSWORD=FitGym123
+
+      - GEMINI_API_KEY=
+      - GEMINI_API_URL=
+
+      - JWT_SECRET=JkD9w0XqL8vZ1uT4eY6rA3oM9pRbNfC2
+      - JWT_EXPIRATION=86400000
+
+    depends_on:
+      - db
+
+
+  db:
+    image: postgres:15-alpine
+    container_name: fitgym-db
+    environment:
+      POSTGRES_DB: GymIAdb
+      POSTGRES_USER: FitGym
+      POSTGRES_PASSWORD: FitGym123
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+    pgdata:
