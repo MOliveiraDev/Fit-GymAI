@@ -36,7 +36,6 @@ public class RegisterService {
         );
         return RegisterResponse.builder()
                 .message("Usuário registrado com sucesso")
-                .username(user.getUsername())
                 .email(user.getEmail())
                 .build();
     }
@@ -56,7 +55,6 @@ public class RegisterService {
         );
         return RegisterResponse.builder()
                 .message("Administrador registrado com sucesso")
-                .username(user.getUsername())
                 .email(user.getEmail())
                 .build();
     }
