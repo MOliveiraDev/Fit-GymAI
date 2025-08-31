@@ -44,13 +44,7 @@ public class RegisterService {
     @Transactional
     public RegisterResponse registerAdmin(RegisterRequest request) {
 
-        if (!request.getPassword().equals(request.getConfirmPassword())) {
-            throw new IllegalArgumentException("As senhas não coincidem");
-        }
-
-        if (userRepository.existsByEmail(request.getEmail())) {
-            throw new EmailActuallyExistsException("Email já cadastrado");
-        }
+        registerValidationsList.forEach(strategy -> strategy.registerResponseValidations(request));
 
         var user = userRepository.save(
                 gemini.FitGymGpt.database.model.User.builder()
