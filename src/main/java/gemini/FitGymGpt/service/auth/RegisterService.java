@@ -3,7 +3,6 @@ package gemini.FitGymGpt.service.auth;
 import gemini.FitGymGpt.database.repository.UserRepository;
 import gemini.FitGymGpt.dto.register.RegisterRequest;
 import gemini.FitGymGpt.dto.register.RegisterResponse;
-import gemini.FitGymGpt.exceptions.register.EmailActuallyExistsException;
 import gemini.FitGymGpt.strategy.IRegisterValidations;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
