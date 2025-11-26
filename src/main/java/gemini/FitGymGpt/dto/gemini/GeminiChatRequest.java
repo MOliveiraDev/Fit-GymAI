@@ -1,28 +1,16 @@
-package gemini.FitGymGpt.dto.gemini;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+package gemini.FitGymGpt.dto.gemini;
 
 import java.util.List;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class GeminiChatRequest {
-    private List<Content> contents;
+public record GeminiChatRequest(
+        List<Content> contents
+) {
+    public record Content(
+            List<Part> parts
+    ) {}
 
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class Content {
-        private List<Part> parts;
-    }
-
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class Part {
-        private String text;
-    }
+    public record Part(
+            String text
+    ) {}
 }
