@@ -1,11 +1,11 @@
 package gemini.FitGymGpt.controller.auth.Impl;
 
 import gemini.FitGymGpt.controller.auth.IAuthController;
-import gemini.FitGymGpt.dto.auth.AuthRequest;
-import gemini.FitGymGpt.dto.auth.AuthResponse;
+import gemini.FitGymGpt.dto.login.AuthRequest;
+import gemini.FitGymGpt.dto.login.AuthResponse;
 import gemini.FitGymGpt.dto.register.RegisterRequest;
 import gemini.FitGymGpt.dto.register.RegisterResponse;
-import gemini.FitGymGpt.service.auth.AuthenticationService;
+import gemini.FitGymGpt.service.auth.LoginService;
 import gemini.FitGymGpt.service.auth.RegisterService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthControllerImpl implements IAuthController {
 
     private final RegisterService registerService;
-    private final AuthenticationService authenticationService;
+    private final LoginService loginService;
 
     @Override
     public ResponseEntity<RegisterResponse> register(@Valid @RequestBody RegisterRequest registerRequest) {
@@ -27,14 +27,20 @@ public class AuthControllerImpl implements IAuthController {
     }
 
     @Override
-    public ResponseEntity<RegisterResponse> registerAdmin(@Valid @RequestBody RegisterRequest registerRequest) {
-        RegisterResponse response = registerService.registerAdmin(registerRequest);
+    public ResponseEntity<RegisterResponse> registerCEO(@Valid @RequestBody RegisterRequest registerRequest) {
+        RegisterResponse response = registerService.registerCEO(registerRequest);
+        return ResponseEntity.status(201).body(response);
+    }
+
+    @Override
+    public ResponseEntity<RegisterResponse> registerPersonalTrainer(@Valid @RequestBody RegisterRequest registerRequest) {
+        RegisterResponse response = registerService.registerPersonalTrainer(registerRequest);
         return ResponseEntity.status(201).body(response);
     }
 
     @Override
     public ResponseEntity<AuthResponse> authenticate(@Valid @RequestBody AuthRequest authRequest) {
-        AuthResponse response = authenticationService.login(authRequest);
+        AuthResponse response = loginService.login(authRequest);
         return ResponseEntity.ok(response);
     }
 
