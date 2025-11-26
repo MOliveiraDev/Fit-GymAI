@@ -1,17 +1,12 @@
-package gemini.FitGymGpt.database.model;
+package gemini.FitGymGpt.database.domain.workplan;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import gemini.FitGymGpt.database.domain.user.UserEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "work_plans_tb")
 public class WorkPlan {
 
@@ -25,6 +20,6 @@ public class WorkPlan {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonIgnore
-    private User user;
+    private UserEntity userEntity;
 }
 
