@@ -1,7 +1,8 @@
-package gemini.FitGymGpt.strategy.impl;
+package gemini.FitGymGpt.strategy.register.impl;
 
 import gemini.FitGymGpt.dto.register.RegisterRequest;
-import gemini.FitGymGpt.strategy.IRegisterValidations;
+import gemini.FitGymGpt.strategy.register.IRegisterValidations;
+import jakarta.validation.Valid;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 
@@ -10,8 +11,8 @@ public class UsernameNotEmptyStrategy implements IRegisterValidations {
 
     @Override
     @SneakyThrows
-    public void registerResponseValidations(RegisterRequest request) {
-        if (request.getUsername() == null || request.getUsername().isEmpty()) {
+    public void registerResponseValidations(@Valid RegisterRequest request) {
+        if (request.username() == null || request.username().isEmpty()) {
             throw new IllegalArgumentException("O nome do usuário não pode estar em branco");
         }
     }
