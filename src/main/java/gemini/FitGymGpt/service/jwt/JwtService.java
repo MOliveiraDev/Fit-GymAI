@@ -1,5 +1,6 @@
 package gemini.FitGymGpt.service.jwt;
 
+import gemini.FitGymGpt.database.domain.user.UserEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -27,8 +28,10 @@ public class JwtService {
     }
 
     public String generateToken (UserDetails userDetails) {
+
+        String email = ((UserEntity) userDetails).getEmail();
         return Jwts.builder()
-                .setSubject(userDetails.getUsername())
+                .setSubject(email)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
@@ -37,7 +40,7 @@ public class JwtService {
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String email = extractUsername(token);
-        return (email.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        return (email.equals(((UserEntity) userDetails).getEmail()) && !isTokenExpired(token));
     }
 
     public String extractUsername(String token) {
