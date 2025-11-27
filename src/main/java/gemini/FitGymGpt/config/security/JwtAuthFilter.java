@@ -1,7 +1,6 @@
-package gemini.FitGymGpt.config;
+package gemini.FitGymGpt.config.security;
 
-import gemini.FitGymGpt.controller.auth.Impl.LogOutControllerImpl;
-import gemini.FitGymGpt.database.model.User;
+import gemini.FitGymGpt.database.domain.user.UserEntity;
 import gemini.FitGymGpt.service.jwt.JwtService;
 import gemini.FitGymGpt.service.jwt.TokenBlacklistService;
 import gemini.FitGymGpt.service.user.UserServiceImpl;
@@ -26,26 +25,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private final UserServiceImpl userService;
     private final TokenBlacklistService tokenBlacklistService;
 
-    @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
         final String authHeader = request.getHeader("Authorization");
-        final String path = request.getServletPath();
-
-
-        if (path.startsWith("/api/auth/register") ||
-                path.startsWith("/api/auth/login") ||
-                path.startsWith("/api/auth/logout") ||
-                path.startsWith("/swagger-ui") ||
-                path.startsWith("/v3/api-docs") ||
-                path.startsWith("/swagger-ui.html")) {
-            filterChain.doFilter(request, response);
-            return;
-        }
 
         final String jwt;
-        final String username;
+        final String email;
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
@@ -59,14 +45,14 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             return;
         }
 
-        username = jwtService.extractUsername(jwt);
+        email = jwtService.extractUsername(jwt);
 
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            User userDetails = (User) userService.loadUserByUsername(username);
+        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserEntity userEntityDetails = (UserEntity) userService.loadUserByUsername(email);
 
-            if (jwtService.isTokenValid(jwt, userDetails)) {
+            if (jwtService.isTokenValid(jwt, userEntityDetails)) {
                 UsernamePasswordAuthenticationToken authToken =
-                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                        new UsernamePasswordAuthenticationToken(userEntityDetails, null, userEntityDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
