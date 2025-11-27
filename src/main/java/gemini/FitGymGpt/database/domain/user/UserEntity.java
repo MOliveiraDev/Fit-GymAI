@@ -1,6 +1,8 @@
 package gemini.FitGymGpt.database.domain.user;
 
 import gemini.FitGymGpt.database.domain.fitcenter.GymCenterEntity;
+import gemini.FitGymGpt.enums.UserRoles;
+import gemini.FitGymGpt.enums.UserStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -55,7 +57,7 @@ public class UserEntity implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, name = "role")
-    private Role role;
+    private UserRoles userRoles;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, name = "user_status")
@@ -64,7 +66,7 @@ public class UserEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(() -> "ROLE_" + role.name());
+        return List.of(() -> "ROLE_" + userRoles.name());
     }
 
     @Override

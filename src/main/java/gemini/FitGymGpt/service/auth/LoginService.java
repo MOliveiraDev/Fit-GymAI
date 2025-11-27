@@ -2,7 +2,7 @@ package gemini.FitGymGpt.service.auth;
 
 
 import gemini.FitGymGpt.database.domain.user.UserEntity;
-import gemini.FitGymGpt.database.domain.user.UserStatus;
+import gemini.FitGymGpt.enums.UserStatus;
 import gemini.FitGymGpt.database.repository.user.UserRepository;
 import gemini.FitGymGpt.dto.login.AuthRequest;
 import gemini.FitGymGpt.dto.login.AuthResponse;
