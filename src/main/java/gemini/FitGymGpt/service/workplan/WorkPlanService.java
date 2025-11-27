@@ -1,9 +1,9 @@
 package gemini.FitGymGpt.service.workplan;
 
-import gemini.FitGymGpt.database.model.User;
-import gemini.FitGymGpt.database.model.WorkPlan;
-import gemini.FitGymGpt.database.repository.UserRepository;
-import gemini.FitGymGpt.database.repository.WorkPlanRepository;
+import gemini.FitGymGpt.database.domain.user.UserEntity;
+import gemini.FitGymGpt.database.domain.workplan.WorkPlan;
+import gemini.FitGymGpt.database.repository.user.UserRepository;
+import gemini.FitGymGpt.database.repository.workplan.WorkPlanRepository;
 import gemini.FitGymGpt.dto.gemini.BodyStatsRequest;
 import gemini.FitGymGpt.service.gemini.GeminiService;
 import lombok.RequiredArgsConstructor;
@@ -18,15 +18,14 @@ public class WorkPlanService {
     private final WorkPlanRepository workPlanRepository;
 
     public String generateWorkPlan(Long userId, BodyStatsRequest request) {
-        User user = userRepository.findById(userId)
+        UserEntity userEntity = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        String jsonPlan = geminiService.workPlanGenerate(request);
+        String jsonPlan = geminiService.generateWorkoutPlan(request);
 
-        WorkPlan plan = WorkPlan.builder()
-                .jsonPlan(jsonPlan)
-                .user(user)
-                .build();
+        WorkPlan plan = new WorkPlan();
+        plan.setJsonPlan(jsonPlan);
+        plan.setUserEntity(userEntity);
 
         WorkPlan saved = workPlanRepository.save(plan);
         return saved.getJsonPlan();

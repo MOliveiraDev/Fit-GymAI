@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 public interface ILogOutController {
 
-    @Operation(summary = "Log out user", description = "Logs out the user by invalidating the JWT token.")
+    @Operation(summary = "Log out userEntity", description = "Logs out the userEntity by invalidating the JWT token.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully logged out"),
             @ApiResponse(responseCode = "401", description = "Unauthorized - Invalid or expired token")

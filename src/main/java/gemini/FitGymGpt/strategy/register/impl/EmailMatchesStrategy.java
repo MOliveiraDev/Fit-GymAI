@@ -1,0 +1,19 @@
+package gemini.FitGymGpt.strategy.register.impl;
+
+import gemini.FitGymGpt.dto.register.RegisterRequest;
+import gemini.FitGymGpt.strategy.register.IRegisterValidations;
+import jakarta.validation.Valid;
+import lombok.SneakyThrows;
+import org.springframework.stereotype.Component;
+
+@Component
+public class EmailMatchesStrategy implements IRegisterValidations {
+
+    @Override
+    @SneakyThrows
+    public void registerResponseValidations(@Valid RegisterRequest request) {
+        if (!request.email().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            throw new IllegalArgumentException("Email inválido");
+        }
+    }
+}

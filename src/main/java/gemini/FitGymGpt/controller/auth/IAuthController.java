@@ -1,9 +1,9 @@
 package gemini.FitGymGpt.controller.auth;
 
+import gemini.FitGymGpt.dto.login.AuthRequest;
+import gemini.FitGymGpt.dto.login.AuthResponse;
 import gemini.FitGymGpt.dto.register.RegisterRequest;
 import gemini.FitGymGpt.dto.register.RegisterResponse;
-import gemini.FitGymGpt.dto.auth.AuthRequest;
-import gemini.FitGymGpt.dto.auth.AuthResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -27,15 +27,25 @@ public interface IAuthController {
     @PostMapping(value = "/register")
     ResponseEntity<RegisterResponse> register(@Valid @RequestBody RegisterRequest registerRequest);
 
-    @Operation(summary = "Registrar um novo usuário administrador")
+    @Operation(summary = "Registrar um novo CEO Trainer")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Usuário administrador registrado com sucesso"),
+            @ApiResponse(responseCode = "201", description = "CEO Trainer registrado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos"),
-            @ApiResponse(responseCode = "409", description = "Usuário já existe"),
+            @ApiResponse(responseCode = "409", description = "CEO já existe"),
     })
     @PostMapping(value = "/register/admin")
-    @PreAuthorize("hasRole('ADMIN')")
-    ResponseEntity<RegisterResponse> registerAdmin(@Valid @RequestBody RegisterRequest registerRequest);
+    @PreAuthorize("hasRole('ROOT')")
+    ResponseEntity<RegisterResponse> registerCEO(@Valid @RequestBody RegisterRequest registerRequest);
+
+    @Operation(summary = "Registrar um novo Personal Trainer")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Personal Trainer registrado com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos"),
+            @ApiResponse(responseCode = "409", description = "Personal Trainer já existe"),
+    })
+    @PostMapping(value = "/register/admin")
+    @PreAuthorize("hasAnyRole('ROOT', 'CEO_TRAINER')")
+    ResponseEntity<RegisterResponse> registerPersonalTrainer(@Valid @RequestBody RegisterRequest registerRequest);
 
     @Operation(summary = "Autenticar usuário")
     @ApiResponses(value = {

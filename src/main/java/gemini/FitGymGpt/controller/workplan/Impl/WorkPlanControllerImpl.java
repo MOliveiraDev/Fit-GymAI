@@ -1,8 +1,8 @@
 package gemini.FitGymGpt.controller.workplan.Impl;
 
+import gemini.FitGymGpt.database.domain.user.UserEntity;
 import gemini.FitGymGpt.dto.gemini.BodyStatsRequest;
-import gemini.FitGymGpt.database.model.User;
-import gemini.FitGymGpt.database.repository.WorkPlanRepository;
+import gemini.FitGymGpt.database.repository.workplan.WorkPlanRepository;
 import gemini.FitGymGpt.service.workplan.WorkPlanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +26,7 @@ public class WorkPlanControllerImpl {
     }
 
     @GetMapping("/my")
-    public ResponseEntity<?> getMyWorkPlans(@AuthenticationPrincipal User user) {
-        return ResponseEntity.ok(workPlanRepository.findByUser(user));
+    public ResponseEntity<?> getMyWorkPlans(@AuthenticationPrincipal UserEntity userEntity) {
+        return ResponseEntity.ok(workPlanRepository.findByUser(userEntity));
     }
 }
