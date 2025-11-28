@@ -15,7 +15,8 @@ public interface GymCenterEntityRepository extends JpaRepository<GymCenterEntity
     @Query("SELECT g FROM GymCenterEntity g WHERE g.gymStatus = 'CLOSE'")
     List<GymCenterEntity> findCloseGymCenters();
 
-    GymCenterEntity findByGymCenterId(Long gymCenterId);
+    @Query("SELECT g FROM GymCenterEntity g WHERE g.taxId = ?1")
+    boolean findByTaxId(String taxId);
 
     boolean findByGymCenterName(String gymCenterName);
 }
