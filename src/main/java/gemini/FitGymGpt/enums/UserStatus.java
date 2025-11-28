@@ -1,4 +1,4 @@
-package gemini.FitGymGpt.database.domain.user;
+package gemini.FitGymGpt.enums;
 
 public enum UserStatus {
 

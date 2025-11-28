@@ -1,6 +1,6 @@
 package gemini.FitGymGpt.config.admin;
 
-import gemini.FitGymGpt.database.domain.user.Role;
+import gemini.FitGymGpt.enums.UserRoles;
 import gemini.FitGymGpt.database.domain.user.UserEntity;
 import gemini.FitGymGpt.database.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class AdminSeeder implements CommandLineRunner {
             adminUser.setUsername("USER ROOT");
             adminUser.setEmail(adminEmail);
             adminUser.setPassword(passwordEncoder.encode("Root@123"));
-            adminUser.setRole(Role.ROOT);
+            adminUser.setUserRoles(UserRoles.ROOT);
 
             userRepository.save(adminUser);
             System.out.println("Admin user created with email: " + adminEmail);
