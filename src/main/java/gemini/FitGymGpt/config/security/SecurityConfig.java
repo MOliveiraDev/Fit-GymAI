@@ -45,9 +45,11 @@ public class SecurityConfig {
                                 "api/auth/register/**"
                         ).permitAll()
                         .requestMatchers(
-                                "",
-                                ""
-                        ).hasAnyRole("", "")
+                                "api/auth/register/personalTrainer"
+                        ).hasAnyRole("ROOT", "CEO_TRAINER")
+                        .requestMatchers(
+                                "api/auth/register/ceoTrainer"
+                        ).hasRole("ROOT")
                         .requestMatchers("/api/v1/logout/**").authenticated()
                         .anyRequest().authenticated()
                 )
