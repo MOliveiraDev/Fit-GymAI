@@ -1,5 +1,6 @@
 package gemini.FitGymGpt.database.domain.fitcenter;
 
+import gemini.FitGymGpt.database.domain.ceotrainer.CeoTrainerEntity;
 import gemini.FitGymGpt.database.domain.user.UserEntity;
 import gemini.FitGymGpt.enums.GymStatus;
 import jakarta.persistence.*;
@@ -19,6 +20,7 @@ public class GymCenterEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "gym_center_id")
     private Long gymCenterId;
 
     @Column(nullable = false, name = "gym_name")
@@ -36,7 +38,7 @@ public class GymCenterEntity {
     private String gymEmail;
 
     @Column(name = "CNPJ", nullable = false)
-    private String TaxId;
+    private String taxId;
 
     @Column(name = "gym_website")
     private String gymWebsite;
@@ -57,8 +59,8 @@ public class GymCenterEntity {
     private LocalTime closingTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner", nullable = false)
-    private UserEntity owner;
+    @JoinColumn(name = "owner_id", nullable = false)
+    private CeoTrainerEntity owner;
 
     @OneToMany(mappedBy = "gymCenterEntity")
     private Set<UserEntity> members = new HashSet<>();
