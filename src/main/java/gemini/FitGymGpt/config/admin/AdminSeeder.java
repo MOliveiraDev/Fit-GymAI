@@ -23,7 +23,12 @@ public class AdminSeeder implements CommandLineRunner {
             adminUser.setUsername("USER ROOT");
             adminUser.setEmail(adminEmail);
             adminUser.setPassword(passwordEncoder.encode("Root@123"));
+            adminUser.setBirthdayDate(new java.util.Date());
+            adminUser.setGender("Não especificado");
+            adminUser.setAge(0);
+            adminUser.setCreatedAt(new java.sql.Timestamp(System.currentTimeMillis()));
             adminUser.setUserRoles(UserRoles.ROOT);
+            adminUser.setUserStatus(gemini.FitGymGpt.enums.UserStatus.OFFLINE);
 
             userRepository.save(adminUser);
             System.out.println("Admin user created with email: " + adminEmail);
