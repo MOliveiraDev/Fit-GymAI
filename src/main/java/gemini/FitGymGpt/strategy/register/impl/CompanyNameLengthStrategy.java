@@ -11,7 +11,7 @@ public class CompanyNameLengthStrategy implements ICeoRegisterValidations {
     @Override
     @SneakyThrows
     public void registerCeoResponseValidations(CeoTrainerRegisterRequest request) {
-        if (request.companyName().length() < 3) {
+        if (request.companyName().toString().length() < 3) {
             throw new IllegalArgumentException("O nome da empresa deve ter pelo menos 3 caracteres");
         }
     }
