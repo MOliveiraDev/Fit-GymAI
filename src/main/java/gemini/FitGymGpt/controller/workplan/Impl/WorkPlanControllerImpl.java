@@ -27,6 +27,6 @@ public class WorkPlanControllerImpl {
 
     @GetMapping("/my")
     public ResponseEntity<?> getMyWorkPlans(@AuthenticationPrincipal UserEntity userEntity) {
-        return ResponseEntity.ok(workPlanRepository.findByUser(userEntity));
+        return ResponseEntity.ok(workPlanRepository.findByUserEntity(userEntity));
     }
 }
