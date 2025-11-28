@@ -1,8 +1,12 @@
 package gemini.FitGymGpt.database.domain.ceotrainer;
 
+import gemini.FitGymGpt.database.domain.fitcenter.GymCenterEntity;
 import gemini.FitGymGpt.database.domain.user.UserEntity;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -18,8 +22,8 @@ public class CeoTrainerEntity {
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private UserEntity user;
 
-    @Column(name = "company_name", nullable = false)
-    private String companyName;
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<GymCenterEntity> gymCenters = new HashSet<>();
 
     @Column(name = "years_experience", nullable = false)
     private Integer yearsExperience;
