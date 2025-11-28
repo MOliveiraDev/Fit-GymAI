@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface WorkPlanRepository extends JpaRepository<WorkPlan, Long> {
 
-    List<WorkPlan> findByUser(UserEntity userEntity);
+    List<WorkPlan> findByUserEntity(UserEntity userEntity);
 }
