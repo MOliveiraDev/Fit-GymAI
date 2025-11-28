@@ -35,7 +35,7 @@ public interface IAuthController {
             @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos"),
             @ApiResponse(responseCode = "409", description = "CEO já existe"),
     })
-    @PostMapping(value = "/register/admin")
+    @PostMapping(value = "/register/ceoTrainer")
     @PreAuthorize("hasRole('ROOT')")
     ResponseEntity<RegisterResponse> registerCEO(@Valid @RequestBody CeoTrainerRegisterRequest registerRequest);
 
@@ -45,7 +45,7 @@ public interface IAuthController {
             @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos"),
             @ApiResponse(responseCode = "409", description = "Personal Trainer já existe"),
     })
-    @PostMapping(value = "/register/admin")
+    @PostMapping(value = "/register/personalTrainer")
     @PreAuthorize("hasAnyRole('ROOT', 'CEO_TRAINER')")
     ResponseEntity<RegisterResponse> registerPersonalTrainer(@Valid @RequestBody PersonalRegisterRequest registerRequest);
 
