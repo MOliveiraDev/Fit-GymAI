@@ -4,6 +4,8 @@ import gemini.FitGymGpt.dto.login.AuthRequest;
 import gemini.FitGymGpt.dto.login.AuthResponse;
 import gemini.FitGymGpt.dto.register.RegisterRequest;
 import gemini.FitGymGpt.dto.register.RegisterResponse;
+import gemini.FitGymGpt.dto.register.ceotrainer.CeoTrainerRegisterRequest;
+import gemini.FitGymGpt.dto.register.personal.PersonalRegisterRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -35,7 +37,7 @@ public interface IAuthController {
     })
     @PostMapping(value = "/register/admin")
     @PreAuthorize("hasRole('ROOT')")
-    ResponseEntity<RegisterResponse> registerCEO(@Valid @RequestBody RegisterRequest registerRequest);
+    ResponseEntity<RegisterResponse> registerCEO(@Valid @RequestBody CeoTrainerRegisterRequest registerRequest);
 
     @Operation(summary = "Registrar um novo Personal Trainer")
     @ApiResponses(value = {
@@ -45,7 +47,7 @@ public interface IAuthController {
     })
     @PostMapping(value = "/register/admin")
     @PreAuthorize("hasAnyRole('ROOT', 'CEO_TRAINER')")
-    ResponseEntity<RegisterResponse> registerPersonalTrainer(@Valid @RequestBody RegisterRequest registerRequest);
+    ResponseEntity<RegisterResponse> registerPersonalTrainer(@Valid @RequestBody PersonalRegisterRequest registerRequest);
 
     @Operation(summary = "Autenticar usuário")
     @ApiResponses(value = {

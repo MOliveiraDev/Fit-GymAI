@@ -5,6 +5,8 @@ import gemini.FitGymGpt.dto.login.AuthRequest;
 import gemini.FitGymGpt.dto.login.AuthResponse;
 import gemini.FitGymGpt.dto.register.RegisterRequest;
 import gemini.FitGymGpt.dto.register.RegisterResponse;
+import gemini.FitGymGpt.dto.register.ceotrainer.CeoTrainerRegisterRequest;
+import gemini.FitGymGpt.dto.register.personal.PersonalRegisterRequest;
 import gemini.FitGymGpt.service.auth.LoginService;
 import gemini.FitGymGpt.service.auth.RegisterService;
 import jakarta.validation.Valid;
@@ -27,13 +29,13 @@ public class AuthControllerImpl implements IAuthController {
     }
 
     @Override
-    public ResponseEntity<RegisterResponse> registerCEO(@Valid @RequestBody RegisterRequest registerRequest) {
+    public ResponseEntity<RegisterResponse> registerCEO(@Valid @RequestBody CeoTrainerRegisterRequest registerRequest) {
         RegisterResponse response = registerService.registerCEO(registerRequest);
         return ResponseEntity.status(201).body(response);
     }
 
     @Override
-    public ResponseEntity<RegisterResponse> registerPersonalTrainer(@Valid @RequestBody RegisterRequest registerRequest) {
+    public ResponseEntity<RegisterResponse> registerPersonalTrainer(@Valid @RequestBody PersonalRegisterRequest registerRequest) {
         RegisterResponse response = registerService.registerPersonalTrainer(registerRequest);
         return ResponseEntity.status(201).body(response);
     }
