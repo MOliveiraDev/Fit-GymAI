@@ -7,7 +7,7 @@ import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EmailMatchesStrategy implements IRegisterValidations {
+public class UserEmailMatchesStrategy implements IRegisterValidations {
 
     @Override
     @SneakyThrows
