@@ -17,7 +17,7 @@ public class CompanyNameActuallyExistsStrategy implements ICeoRegisterValidation
     @Override
     @SneakyThrows
     public void registerCeoResponseValidations(@Valid CeoTrainerRegisterRequest request) {
-        if (gymCenterRepository.findByGymCenterName(request.companyName().toString())) {
+        if (gymCenterRepository.existsByGymCenterName(request.companyName().toString())) {
             throw new IllegalArgumentException("Essa empresa já está cadastrada");
         }
 
