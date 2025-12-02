@@ -1,6 +1,6 @@
 package gemini.FitGymGpt.strategy.fitcenter.impl;
 
-import gemini.FitGymGpt.dto.fitcenter.CreateGymCenterRequest;
+import gemini.FitGymGpt.dto.fitcenter.GymCenterRequest;
 import gemini.FitGymGpt.strategy.fitcenter.IGymCenterValidations;
 import jakarta.validation.Valid;
 import lombok.SneakyThrows;
@@ -11,7 +11,7 @@ public class TaxIdEmptyStrategy implements IGymCenterValidations {
 
     @Override
     @SneakyThrows
-    public void gymCenterValidations(@Valid CreateGymCenterRequest request) {
+    public void gymCenterValidations(@Valid GymCenterRequest request) {
         if (request.taxId().isEmpty()) {
             throw new IllegalArgumentException("Preencha o CNPJ");
         }

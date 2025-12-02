@@ -2,7 +2,7 @@ package gemini.FitGymGpt.dto.fitcenter;
 
 import java.time.LocalTime;
 
-public record CreateGymCenterRequest(
+public record GymCenterRequest(
 
         String gymCenterName,
         String gymDescription,

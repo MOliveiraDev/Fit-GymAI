@@ -1,7 +1,7 @@
 package gemini.FitGymGpt.strategy.fitcenter.impl;
 
 import gemini.FitGymGpt.database.repository.fitcenter.GymCenterEntityRepository;
-import gemini.FitGymGpt.dto.fitcenter.CreateGymCenterRequest;
+import gemini.FitGymGpt.dto.fitcenter.GymCenterRequest;
 import gemini.FitGymGpt.strategy.fitcenter.IGymCenterValidations;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ public class TaxIdActuallyExists implements IGymCenterValidations {
 
     @Override
     @SneakyThrows
-    public void gymCenterValidations(@Valid CreateGymCenterRequest request){
+    public void gymCenterValidations(@Valid GymCenterRequest request){
         if (gymCenterEntityRepository.findByTaxId(request.taxId())) {
             throw new IllegalArgumentException("O CNPJ informado já está cadastrado no sistema");
         }
