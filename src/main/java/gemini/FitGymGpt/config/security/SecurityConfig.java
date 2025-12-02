@@ -41,14 +41,14 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "api/auth/login/**",
-                                "api/auth/register/**"
+                                "/api/auth/login/**",
+                                "/api/auth/register/**"
                         ).permitAll()
                         .requestMatchers(
-                                "api/auth/register/personalTrainer"
+                                "/api/auth/register/personalTrainer"
                         ).hasAnyRole("ROOT", "CEO_TRAINER")
                         .requestMatchers(
-                                "api/auth/register/ceoTrainer"
+                                "/api/auth/register/ceoTrainer"
                         ).hasRole("ROOT")
                         .requestMatchers("/api/v1/logout/**").authenticated()
                         .anyRequest().authenticated()
