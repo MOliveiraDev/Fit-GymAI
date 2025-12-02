@@ -17,7 +17,7 @@ public class TaxIdActuallyExists implements IGymCenterValidations {
     @Override
     @SneakyThrows
     public void gymCenterValidations(@Valid GymCenterRequest request){
-        if (gymCenterRepository.findByTaxId(request.taxId())) {
+        if (gymCenterRepository.existsByTaxId(request.taxId())) {
             throw new IllegalArgumentException("O CNPJ informado já está cadastrado no sistema");
         }
     }
