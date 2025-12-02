@@ -2,7 +2,7 @@ package gemini.FitGymGpt.config.fitcenter;
 
 import gemini.FitGymGpt.database.domain.fitcenter.GymCenterEntity;
 import gemini.FitGymGpt.enums.GymStatus;
-import gemini.FitGymGpt.database.repository.fitcenter.GymCenterEntityRepository;
+import gemini.FitGymGpt.database.repository.fitcenter.GymCenterRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -14,14 +14,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GymStatusScheduler {
 
-    private final GymCenterEntityRepository gymCenterEntityRepository;
+    private final GymCenterRepository gymCenterRepository;
 
     @Scheduled(fixedRate = 60000)
     public void updateGymStatus() {
 
         LocalTime now = LocalTime.now();
 
-        List<GymCenterEntity> gyms = gymCenterEntityRepository.findAll();
+        List<GymCenterEntity> gyms = gymCenterRepository.findAll();
 
         for (GymCenterEntity gym : gyms) {
             GymStatus newStatus = isGymOpen(now, gym.getOpeningTime(), gym.getClosingTime())
@@ -30,7 +30,7 @@ public class GymStatusScheduler {
 
             if (!newStatus.equals(gym.getGymStatus())) {
                 gym.setGymStatus(newStatus);
-                gymCenterEntityRepository.save(gym);
+                gymCenterRepository.save(gym);
             }
         }
     }
