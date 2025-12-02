@@ -1,9 +1,12 @@
 package gemini.FitGymGpt.database.domain.workplan;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import gemini.FitGymGpt.database.domain.fitcenter.GymCenterEntity;
 import gemini.FitGymGpt.database.domain.user.UserEntity;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.security.Timestamp;
 
 @Entity
 @Data
@@ -21,5 +24,12 @@ public class WorkPlan {
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private UserEntity userEntity;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "gym_center_id")
+    private GymCenterEntity gymCenter;
+
+    @Column(name = "created_at")
+    private Timestamp createdAt;
 }
 
