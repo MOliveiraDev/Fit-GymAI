@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/fitCenter")
@@ -35,17 +36,28 @@ public class FitCenterController implements IFitCenterController {
     }
 
     @Override
-    public ResponseEntity<?> listOpenGymCenters(int page, int size) {
+    public ResponseEntity<?> listSectionOpenedGymCenters(int page, int size) {
         return ResponseEntity.status(200).body(gymCenterService.findByGymCenterOpened(PageRequest.of(page, size)));
     }
 
     @Override
-    public ResponseEntity<?> listExpiredGymCenters(int page, int size) {
+    public ResponseEntity<?> listGymCenterOpened(LocalDate gymOpenedTime, int page, int size) {
+        return ResponseEntity.status(200).body(gymCenterService.findByGymCenterOpenTime(gymOpenedTime, PageRequest.of(page, size)));
+    }
+
+    @Override
+    public ResponseEntity<?> listGymCenterClosened(LocalDate gymClosenedTime, int page, int size) {
+        return ResponseEntity.status(200).body(gymCenterService.findByGymCenterCloseTime(gymClosenedTime, PageRequest.of(page, size)));
+
+    }
+
+    @Override
+    public ResponseEntity<?> listSectionExpiredGymCenters(int page, int size) {
         return ResponseEntity.status(200).body(gymCenterService.findByGymCenterExpired(PageRequest.of(page, size)));
     }
 
     @Override
-    public ResponseEntity<?> listCanceledGymCenters(int page, int size) {
+    public ResponseEntity<?> listSectionCanceledGymCenters(int page, int size) {
         return ResponseEntity.status(200).body(gymCenterService.findByGymCenterCanceled(PageRequest.of(page, size)));
 
     }
