@@ -50,6 +50,12 @@ public class GymCenterEntity {
     @NotBlank(message = "Endereço da academia não pode ser vazio")
     private String gymCenterAddress;
 
+    @Column(name = "latitude", nullable = false)
+    private Double latitude;
+
+    @Column(name = "longitude", nullable = false)
+    private Double longitude;
+
     @Column(name = "gym_open_time")
     @NotNull(message = "Horário de abertura é obrigatório")
     private LocalTime openingTime;
@@ -67,6 +73,6 @@ public class GymCenterEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "gym_status")
-    private GymStatus gymStatus = GymStatus.CLOSED;
+    private GymStatus gymStatus;
 }
 
