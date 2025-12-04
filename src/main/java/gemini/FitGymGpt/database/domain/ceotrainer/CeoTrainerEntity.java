@@ -1,5 +1,6 @@
 package gemini.FitGymGpt.database.domain.ceotrainer;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import gemini.FitGymGpt.database.domain.fitcenter.GymCenterEntity;
 import gemini.FitGymGpt.database.domain.user.UserEntity;
 import jakarta.persistence.*;
@@ -23,6 +24,7 @@ public class CeoTrainerEntity {
     private UserEntity user;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<GymCenterEntity> gymCenters = new HashSet<>();
 
     @Column(name = "years_experience", nullable = false)
