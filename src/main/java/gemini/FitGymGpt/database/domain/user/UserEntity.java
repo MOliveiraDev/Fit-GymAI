@@ -1,5 +1,6 @@
 package gemini.FitGymGpt.database.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import gemini.FitGymGpt.database.domain.fitcenter.GymCenterEntity;
 import gemini.FitGymGpt.enums.UserRoles;
 import gemini.FitGymGpt.enums.UserStatus;
@@ -50,6 +51,7 @@ public class UserEntity implements UserDetails {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "gym_center_id")
+    @JsonIgnore
     private GymCenterEntity gymCenterEntity;
 
     @Column(name = "created_at", nullable = false)
