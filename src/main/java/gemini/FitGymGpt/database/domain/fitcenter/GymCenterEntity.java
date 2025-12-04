@@ -1,5 +1,6 @@
 package gemini.FitGymGpt.database.domain.fitcenter;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import gemini.FitGymGpt.database.domain.ceotrainer.CeoTrainerEntity;
 import gemini.FitGymGpt.database.domain.user.UserEntity;
 import gemini.FitGymGpt.enums.GymStatus;
@@ -66,9 +67,11 @@ public class GymCenterEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", nullable = false)
+    @JsonIgnore
     private CeoTrainerEntity owner;
 
     @OneToMany(mappedBy = "gymCenterEntity")
+    @JsonIgnore
     private Set<UserEntity> members = new HashSet<>();
 
     @Enumerated(EnumType.STRING)
