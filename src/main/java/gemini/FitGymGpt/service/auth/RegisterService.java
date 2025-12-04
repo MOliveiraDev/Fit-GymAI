@@ -40,9 +40,9 @@ public class RegisterService {
     @Transactional
     public RegisterResponse register(@Valid RegisterRequest request) {
         validateRequest(request);
-        UserEntity user = buildBaseUser(request, UserRoles.USER);
+        UserEntity user = buildBaseUser(request);
         userRepository.save(user);
-        return new RegisterResponse("New User Registered");
+        return new RegisterResponse("Novo usuário foi cadastrado");
     }
 
     @Transactional
@@ -54,10 +54,10 @@ public class RegisterService {
 
         CeoTrainerEntity ceoProfile = new CeoTrainerEntity();
         ceoProfile.setUser(user);
-        ceoProfile.setGymCenters(request.companyName());
+        ceoProfile.setYearsExperience(request.yearsExperience());
         ceoTrainerRepository.save(ceoProfile);
 
-        return new RegisterResponse("New CEO Trainer Registered");
+        return new RegisterResponse("Um novo CEO Trainer foi cadastrado");
     }
 
     @Transactional
@@ -73,7 +73,7 @@ public class RegisterService {
         personalProfile.setYearsExperience(request.yearsExperience());
         personalRepository.save(personalProfile);
 
-        return new RegisterResponse("New Personal Trainer Registered");
+        return new RegisterResponse("Um novo Personal Trainer foi cadastrado");
     }
 
     private UserEntity createBaseUser(String username, Date birthDate, String email, String rawPassword, String gender, UserRoles role) {
@@ -89,8 +89,8 @@ public class RegisterService {
         return user;
     }
 
-    private UserEntity buildBaseUser(@Valid RegisterRequest request, UserRoles userRoles) {
-        return createBaseUser(request.username(), (Date) request.birthDate(), request.email(), request.password(), request.gender(), userRoles);
+    private UserEntity buildBaseUser(@Valid RegisterRequest request) {
+        return createBaseUser(request.username(), request.birthDate(), request.email(), request.password(), request.gender(), UserRoles.USER);
     }
 
     private UserEntity buildBaseUser(@Valid CeoTrainerRegisterRequest request) {
@@ -105,11 +105,11 @@ public class RegisterService {
         registerValidationsList.forEach(strategy -> strategy.registerResponseValidations(request));
     }
 
-    private void validateCeoRequest(CeoTrainerRegisterRequest request) {
+    private void validateCeoRequest(@Valid CeoTrainerRegisterRequest request) {
         registerCeoValidationsList.forEach(strategy -> strategy.registerCeoResponseValidations(request));
     }
 
-    private void validatePersonalRequest(PersonalRegisterRequest request) {
+    private void validatePersonalRequest(@Valid PersonalRegisterRequest request) {
         personalRegisterValidations.forEach(strategy -> strategy.personalRegisterValidations(request));
     }
 
