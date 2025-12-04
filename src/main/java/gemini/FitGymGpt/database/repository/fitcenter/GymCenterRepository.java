@@ -6,11 +6,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.time.LocalDate;
+
 public interface GymCenterRepository extends JpaRepository<GymCenterEntity, Long> {
 
     Page<GymCenterEntity> findByGymStatus(GymStatus status, Pageable pageable);
 
     Page<GymCenterEntity> findByGymCenterNameContainingIgnoreCase(String gymCenterName, Pageable pageable);
+
+    Page<GymCenterEntity> findByOpeningTime(LocalDate openingTime, Pageable pageable);
+
+    Page<GymCenterEntity> findByClosingTime(LocalDate closingTime, Pageable pageable);
 
     boolean existsByTaxId(String taxId);
     boolean existsByGymCenterName(String gymCenterName);
